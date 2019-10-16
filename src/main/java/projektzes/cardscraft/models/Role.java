@@ -17,11 +17,7 @@ public class Role {
 
 	@Column(name = "name")
     @NotEmpty
-    private String name;
-	
-	@Column(name = "access_right")
-    @NotEmpty
-    private int accessRight;
+    private Enum<Roles> name;
 
 	public Integer getId() {
 		return id;
@@ -31,21 +27,15 @@ public class Role {
 		this.id = id;
 	}
 
-	public String getName() {
+	public Enum<Roles> getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(Enum<Roles> name) {
 		this.name = name;
 	}
 
-	public int getAccessRight() {
-		return accessRight;
-	}
 
-	public void setAccessRight(int accesRight) {
-		this.accessRight = accesRight;
-	}
 	
 	
 }

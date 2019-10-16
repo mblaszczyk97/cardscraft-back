@@ -31,9 +31,9 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name = "login")
+	@Column(name = "username")
 	@NotEmpty
-	private String login;
+	private String username;
 
 	@Column(name = "password")
 	@NotEmpty
@@ -44,7 +44,6 @@ public class User {
 	private String email;
 
 	@Column(name = "level")
-	@NotEmpty
 	private int lvl;
 
 	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "user")
@@ -62,12 +61,14 @@ public class User {
 		this.id = id;
 	}
 
-	public String getLogin() {
-		return login;
+
+
+	public String getUsername() {
+		return username;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
