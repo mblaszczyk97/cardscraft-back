@@ -19,9 +19,9 @@ public class Role {
     @NotEmpty
     private String name;
 	
-	@Column(name = "acces_right")
+	@Column(name = "access_right")
     @NotEmpty
-    private int accesRight;
+    private int accessRight;
 
 	public Integer getId() {
 		return id;
@@ -39,12 +39,12 @@ public class Role {
 		this.name = name;
 	}
 
-	public int getAccesRight() {
-		return accesRight;
+	public int getAccessRight() {
+		return accessRight;
 	}
 
-	public void setAccesRight(int accesRight) {
-		this.accesRight = accesRight;
+	public void setAccessRight(int accesRight) {
+		this.accessRight = accesRight;
 	}
 	
 	

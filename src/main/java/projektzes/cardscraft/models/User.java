@@ -1,7 +1,10 @@
 package projektzes.cardscraft.models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -17,35 +20,36 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.beans.support.MutableSortDefinition;
+import org.springframework.beans.support.PropertyComparator;
 import org.springframework.format.annotation.DateTimeFormat;
-
 
 @Entity
 @Table(name = "users")
 public class User {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
 	@Column(name = "login")
-    @NotEmpty
-    private String login;
-	
+	@NotEmpty
+	private String login;
+
 	@Column(name = "password")
-    @NotEmpty
-    private String password;
-	
+	@NotEmpty
+	private String password;
+
 	@Column(name = "email")
-    @NotEmpty
-    private String email;
-	
+	@NotEmpty
+	private String email;
+
 	@Column(name = "level")
-    @NotEmpty
-    private int lvl;
-	
+	@NotEmpty
+	private int lvl;
+
 	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private Set<Deck> decks;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "role_id")
 	private Role role;
@@ -90,14 +94,6 @@ public class User {
 		this.lvl = lvl;
 	}
 
-	public Set<Deck> getDecks() {
-		return decks;
-	}
-
-	public void setDecks(Set<Deck> decks) {
-		this.decks = decks;
-	}
-
 	public Role getRole() {
 		return role;
 	}
@@ -106,5 +102,21 @@ public class User {
 		this.role = role;
 	}
 	
+	protected Set<Deck> getDecksInternal() {
+		if (this.decks == null) {
+			this.decks = new HashSet<>();
+		}
+		return this.decks;
+	}
+
+	public List<Deck> getDecks() {
+		List<Deck> sortedDecks = new ArrayList<>(getDecksInternal());
+		PropertyComparator.sort(sortedDecks, new MutableSortDefinition("name", true, true));
+		return Collections.unmodifiableList(sortedDecks);
+	}
 	
+	protected void setDecksInternal(Set<Deck> decks) {
+        this.decks = decks;
+    }
+
 }
