@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -25,12 +26,12 @@ public class Deck {
 	
 	@Column(name = "type")
 	private String type;
-
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "deck")
+	
+	@ManyToMany(mappedBy = "decks")
 	private Set<Card> cards;
-    
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Set<User> users;
+
+	@ManyToMany(mappedBy = "decks") 
+	private Set<User> users;
 
 	public Integer getId() {
 		return id;
@@ -56,21 +57,15 @@ public class Deck {
 		this.type = type;
 	}
 
-	public Set<Card> getCards() {
-		return cards;
-	}
-
-	public void setCards(Set<Card> cards) {
-		this.cards = cards;
-	}
-
-	public Set<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(Set<User> users) {
-		this.users = users;
-	}
+	/*
+	 * public Set<Card> getCards() { return cards; }
+	 * 
+	 * public void setCards(Set<Card> cards) { this.cards = cards; }
+	 * 
+	 * public Set<User> getUsers() { return users; }
+	 * 
+	 * public void setUsers(Set<User> users) { this.users = users; }
+	 */
     
     
 }

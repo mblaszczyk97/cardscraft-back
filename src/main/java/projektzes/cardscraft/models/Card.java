@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -16,7 +17,7 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.type.BlobType;
 
 @Entity
-@Table(name = "Cards")
+@Table(name = "cards")
 public class Card {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,8 +40,12 @@ public class Card {
 	private BlobType img;
 
 	@ManyToMany
-	@JoinColumn(name = "deck_id")
+	@JoinTable(
+	  name = "decks_cards", 
+	  joinColumns = @JoinColumn(name = "card_id"), 
+	  inverseJoinColumns = @JoinColumn(name = "deck_id"))
 	private Set<Deck> decks;
+	 
 
 	public String getName() {
 		return name;

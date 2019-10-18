@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -45,10 +46,14 @@ public class User {
 
 	@Column(name = "level")
 	private int lvl;
-
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	
+	@ManyToMany
+	@JoinTable(
+	  name = "decks_users", 
+	  joinColumns = @JoinColumn(name = "user_id"), 
+	  inverseJoinColumns = @JoinColumn(name = "deck_id"))
 	private Set<Deck> decks;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "role_id")
 	private Role role;
@@ -95,29 +100,20 @@ public class User {
 		this.lvl = lvl;
 	}
 
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-	
-	protected Set<Deck> getDecksInternal() {
-		if (this.decks == null) {
-			this.decks = new HashSet<>();
-		}
-		return this.decks;
-	}
-
-	public List<Deck> getDecks() {
-		List<Deck> sortedDecks = new ArrayList<>(getDecksInternal());
-		PropertyComparator.sort(sortedDecks, new MutableSortDefinition("name", true, true));
-		return Collections.unmodifiableList(sortedDecks);
-	}
-	
-	protected void setDecksInternal(Set<Deck> decks) {
-        this.decks = decks;
-    }
+	/*
+	 * public Role getRole() { return role; }
+	 * 
+	 * public void setRole(Role role) { this.role = role; }
+	 * 
+	 * protected Set<Deck> getDecksInternal() { if (this.decks == null) { this.decks
+	 * = new HashSet<>(); } return this.decks; }
+	 * 
+	 * public List<Deck> getDecks() { List<Deck> sortedDecks = new
+	 * ArrayList<>(getDecksInternal()); PropertyComparator.sort(sortedDecks, new
+	 * MutableSortDefinition("name", true, true)); return
+	 * Collections.unmodifiableList(sortedDecks); }
+	 * 
+	 * protected void setDecksInternal(Set<Deck> decks) { this.decks = decks; }
+	 */
 
 }
