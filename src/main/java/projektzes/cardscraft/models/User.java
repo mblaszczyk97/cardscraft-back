@@ -40,7 +40,7 @@ public class User {
 	@NotEmpty
 	private String password;
 
-	@Column(name = "email")
+	@Column(name = "email", unique = true)
 	@NotEmpty
 	private String email;
 
@@ -100,6 +100,21 @@ public class User {
 		this.lvl = lvl;
 	}
 
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public Set<Deck> getDecks() {
+		return decks;
+	}
+
+	public void setDecks(Set<Deck> decks) {
+		this.decks = decks;
+	}
 	/*
 	 * public Role getRole() { return role; }
 	 * 

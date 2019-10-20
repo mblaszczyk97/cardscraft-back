@@ -1,11 +1,6 @@
 package projektzes.cardscraft.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
@@ -16,8 +11,9 @@ public class Role {
     private Integer id;
 
 	@Column(name = "name")
+	@Enumerated(EnumType.STRING)
     @NotEmpty
-    private Enum<Roles> name;
+    private RoleEnum name;
 
 	public Integer getId() {
 		return id;
@@ -27,11 +23,11 @@ public class Role {
 		this.id = id;
 	}
 
-	public Enum<Roles> getName() {
+	public RoleEnum getName() {
 		return name;
 	}
 
-	public void setName(Enum<Roles> name) {
+	public void setName(RoleEnum name) {
 		this.name = name;
 	}
 

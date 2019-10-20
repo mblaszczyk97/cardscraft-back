@@ -1,5 +1,5 @@
 package projektzes.cardscraft.models;
 
-public enum Roles {
-	Admin, User;
+public enum RoleEnum {
+	ADMIN, USER
 }
