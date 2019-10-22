@@ -1,19 +1,14 @@
 package projektzes.cardscraft.controllers;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import projektzes.cardscraft.models.Role;
 import projektzes.cardscraft.models.RoleEnum;
 import projektzes.cardscraft.models.User;
 import projektzes.cardscraft.services.RoleService;
 import projektzes.cardscraft.services.UserService;
 
-import java.util.Date;
 import java.util.HashSet;
 
 @RestController
@@ -45,11 +40,6 @@ public class UserController {
         userService.register(user);
         String token = userService.generateToken(user);
         return new ResponseEntity<>(token, HttpStatus.OK);
-    }
-
-    @PostMapping("/logout")
-    User logout(@RequestHeader("Authorization") String token) {
-        return new User();
     }
 
     @GetMapping("/check")
