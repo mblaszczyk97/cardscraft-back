@@ -38,8 +38,7 @@ public class UserController {
         user.setLvl(0);
         user.setDecks(new HashSet<>());
         userService.register(user);
-        String token = userService.generateToken(user);
-        return new ResponseEntity<>(token, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/check")
