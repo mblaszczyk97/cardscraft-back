@@ -33,7 +33,7 @@ public class UserController {
         if(userService.authorize(user))
             return ResponseEntity.ok(Collections.singletonMap("token", userService.generateToken(user)));
            // return ResponseEntity.ok( JSON(userService.generateToken(user));//return new ResponseEntity<>(,HttpStatus.OK);
-        else return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        else return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @PostMapping("/register")
