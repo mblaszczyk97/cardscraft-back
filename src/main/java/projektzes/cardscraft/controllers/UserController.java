@@ -2,6 +2,7 @@ package projektzes.cardscraft.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import projektzes.cardscraft.models.RoleEnum;
@@ -9,7 +10,9 @@ import projektzes.cardscraft.models.User;
 import projektzes.cardscraft.services.RoleService;
 import projektzes.cardscraft.services.UserService;
 
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -24,11 +27,13 @@ public class UserController {
         this.roleService = roleService;
     }
 
-    @PostMapping("/login")
-    ResponseEntity<String> login(@RequestBody User user) {
+    @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<Map> login(@RequestBody User user) {
         user.setPassword(user.getPassword());
-        if(userService.authorize(user)) return new ResponseEntity<String>(userService.generateToken(user),HttpStatus.OK);
-        else return new ResponseEntity<String>(HttpStatus.FORBIDDEN);
+        if(userService.authorize(user))
+            return ResponseEntity.ok(Collections.singletonMap("token", userService.generateToken(user)));
+           // return ResponseEntity.ok( JSON(userService.generateToken(user));//return new ResponseEntity<>(,HttpStatus.OK);
+        else return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     @PostMapping("/register")
